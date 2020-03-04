@@ -53,8 +53,8 @@ def calculate_sim(s1, s2):
     dict_s2 = {}
     cnt = 0
     total_cnt = 0
-    # doc1_length = 0
-    # doc2_length = 0
+    doc1_length = 0
+    doc2_length = 0
 
     for d in docs:
         temp = []
@@ -65,11 +65,11 @@ def calculate_sim(s1, s2):
                 all_words[w] = all_words.get(w, 0) + 1 #if not present use default val: 0
                 temp.append(w)
                 if cnt == 0:
-                    # doc1_length += 1
+                    doc1_length += 1
                     dict_s1[w] = dict_s1.get(w, 0) + 1
                     dict_s2[w] = dict_s2.get(w, 0) #if key doesn't exist then set as 0
                 else:
-                    # doc2_length += 1
+                    doc2_length += 1
                     dict_s2[w] = dict_s2.get(w, 0) + 1
                     dict_s1[w] = dict_s1.get(w, 0) #if key doesn't exist then set as 0
         
@@ -128,13 +128,13 @@ def calculate_sim(s1, s2):
     #     if word in dict_s2:
     #         deno2 += tf_d2[word] ** 2
 
-    # ### TFIDF
-    # for word in all_words:
-    #     num += tfidf_d1[word] * tfidf_d2[word]
-    #     if word in dict_s1:
-    #         deno1 += tfidf_d1[word] ** 2
-    #     if word in dict_s2:
-    #         deno2 += tfidf_d2[word] ** 2
+    ### TFIDF
+    for word in all_words:
+        num += tfidf_d1[word] * tfidf_d2[word]
+        if word in dict_s1:
+            deno1 += tfidf_d1[word] ** 2
+        if word in dict_s2:
+            deno2 += tfidf_d2[word] ** 2
 
     deno = sqrt(deno1) * sqrt(deno2)
 
@@ -174,5 +174,6 @@ Cos sim        :    1            0.87940         0.54524
 cos sim-stopwords:  1            0.76964         0.29852
 TF - cos sim   :    1            0.87940         0.54524
 TFIDF - cos sim:    1            0.67114         0.24819
+TFIDF-stopwords:    1            0.47336         0.10211
 
 '''

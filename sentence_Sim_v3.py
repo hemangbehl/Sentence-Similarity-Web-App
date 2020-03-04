@@ -76,9 +76,9 @@ def calculate_sim(s1, s2):
         cnt += 1 #change cnt
 
     
-    ##TF - IDF
-    #get IDF= total no of doc / DF
-    #DF = no. of documents a word is present in
+    ## #TF - IDF
+    ## get IDF= total no of doc / DF
+    ## DF = no. of documents a word is present in
     N = 2
     idf = {} 
     for word in all_words:
@@ -88,19 +88,25 @@ def calculate_sim(s1, s2):
         if dict_s2[word] != 0:
             df += 1
         
-        idf[word] =  ( N / (df) )
+        # idf[word] =  ( N / (df) )   #log 10  removed as no, of documents is too small
         
+    ### TFIDF is not used as the no, of document to be compared is only 2
+    # tfidf_d1 = {}
+    # tfidf_d2 = {}
+
+    # for word in all_words:
+    #     tfidf_d1[word] = (dict_s1[word] / doc1_length) * (idf[word])
+    #     tfidf_d2[word] = (dict_s2[word] / doc2_length) * (idf[word])
     
-    tfidf_d1 = {}
-    tfidf_d2 = {}
-
-    for word in all_words:
-        tfidf_d1[word] = (dict_s1[word] / doc1_length) * (idf[word])
-        tfidf_d2[word] = (dict_s2[word] / doc2_length) * (idf[word])
-
+    # tf_d1 = {}
+    # tf_d2 = {}
+    # for word in all_words:
+    #     tf_d1[word] = (dict_s1[word] / doc1_length)
+    #     tf_d2[word] = (dict_s2[word] / doc2_length)
+    
     # print(tfidf_d1, tfidf_d2)
 
-    print("total words", total_cnt) #total words accepted in both sentences
+    # print("total words", total_cnt) #total words accepted in both sentences
     
     #cal cos sim
     #num = a1*b1 + a2*b2
@@ -109,22 +115,29 @@ def calculate_sim(s1, s2):
     deno1 = 0
     deno2 = 0
 
-    # for word in all_words:
-    #     num += dict_s1[word] * dict_s2[word]
-    #     if word in dict_s1:
-    #         deno1 += dict_s1[word] ** 2
-    #         # print(dict_s1[key])
-    #     if word in dict_s2:
-    #         deno2 += dict_s2[word] ** 2
-
-    ### tfidf
+    ### #simple term count - similar to TF
     for word in all_words:
-        num += tfidf_d1[word] * tfidf_d2[word]
+        num += dict_s1[word] * dict_s2[word]
         if word in dict_s1:
-            deno1 += tfidf_d1[word] ** 2
-            # print(dict_s1[key])
+            deno1 += dict_s1[word] ** 2
         if word in dict_s2:
-            deno2 += tfidf_d2[word] ** 2
+            deno2 += dict_s2[word] ** 2
+
+    # ### TFIDF
+    # for word in all_words:
+    #     num += tfidf_d1[word] * tfidf_d2[word]
+    #     if word in dict_s1:
+    #         deno1 += tfidf_d1[word] ** 2
+    #     if word in dict_s2:
+    #         deno2 += tfidf_d2[word] ** 2
+
+    # ### tf
+    # for word in all_words:
+    #     num += tf_d1[word] * tf_d2[word]
+    #     if word in dict_s1:
+    #         deno1 += tf_d1[word] ** 2
+    #     if word in dict_s2:
+    #         deno2 += tf_d2[word] ** 2
 
     deno = sqrt(deno1) * sqrt(deno2)
 
@@ -157,4 +170,15 @@ if __name__ == "__main__":
 
 
     # print("Similarity Score = ", calculate_sim(a, b) )
-    print("Similarity Score = ", calculate_sim(s1, s2) )
+    print("Similarity Score = ", calculate_sim(s1, s3) )
+
+
+'''
+Results:
+                    s1 vs s1       s1 vs s2     s1 vs s3
+Cos sim        :    1            0.86024         0.51457
+TF - cos sim   :    1            0.86024         0.51457
+TFIDF - cos sim:    1            0.64420         0.22799
+
+
+'''

@@ -15,6 +15,8 @@ def calculate_sim(s1, s2):
     ##removing punctuations
     punctuation_list = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
 
+    stopwords = set(["a","about","above","after","again","against","all","am","an","and","any","are","aren't","as","at","be","because","been","before","being","below","between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't","down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he","he'd","he'll","he's","her","here","here's","hers","herself","him","himself","his","how","how's","i","i'd","i'll","i'm","i've","if","in","into","is","isn't","it","it's","its","itself","let's","me","more","most","mustn't","my","myself","no","nor","not","of","off","on","once","only","or","other","ought","our","ours","ourselves","out","over","own","same","shan't","she","she'd","she'll","she's","should","shouldn't","so","some","such","than","that","that's","the","their","theirs","them","themselves","then","there","there's","these","they","they'd","they'll","they're","they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll","we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's","whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours","yourself","yourselves"])
+
     for i in punctuation_list:
         if i == '\'' or i == '"':
             #replace with nothing
@@ -53,22 +55,23 @@ def calculate_sim(s1, s2):
     dict_s2 = {}
     cnt = 0
     total_cnt = 0
-    doc1_length = 0
-    doc2_length = 0
+    # doc1_length = 0
+    # doc2_length = 0
 
     for d in docs:
         temp = []
         for w in d:
-            if len(w) > 2 and w.isalpha(): #discard words <= len 3 or if not an alphabet
+            if len(w) > 2 and w not in stopwords: #discard stopwords
+            # if len(w) > 2:
                 total_cnt += 1
                 all_words[w] = all_words.get(w, 0) + 1 #if not present use default val: 0
                 temp.append(w)
                 if cnt == 0:
-                    doc1_length += 1
+                    # doc1_length += 1
                     dict_s1[w] = dict_s1.get(w, 0) + 1
                     dict_s2[w] = dict_s2.get(w, 0) #if key doesn't exist then set as 0
                 else:
-                    doc2_length += 1
+                    # doc2_length += 1
                     dict_s2[w] = dict_s2.get(w, 0) + 1
                     dict_s1[w] = dict_s1.get(w, 0) #if key doesn't exist then set as 0
         
@@ -88,9 +91,9 @@ def calculate_sim(s1, s2):
         if dict_s2[word] != 0:
             df += 1
         
-        # idf[word] =  ( N / (df) )   #log 10  removed as no, of documents is too small
+        idf[word] =  ( N / (df) )   #log 10  removed as no, of documents is too small
         
-    ### TFIDF is not used as the no, of document to be compared is only 2
+    ### TFIDF is not used as the no. of document to be compared is only 2
     # tfidf_d1 = {}
     # tfidf_d2 = {}
 
@@ -103,10 +106,6 @@ def calculate_sim(s1, s2):
     # for word in all_words:
     #     tf_d1[word] = (dict_s1[word] / doc1_length)
     #     tf_d2[word] = (dict_s2[word] / doc2_length)
-    
-    # print(tfidf_d1, tfidf_d2)
-
-    # print("total words", total_cnt) #total words accepted in both sentences
     
     #cal cos sim
     #num = a1*b1 + a2*b2
@@ -123,14 +122,6 @@ def calculate_sim(s1, s2):
         if word in dict_s2:
             deno2 += dict_s2[word] ** 2
 
-    # ### TFIDF
-    # for word in all_words:
-    #     num += tfidf_d1[word] * tfidf_d2[word]
-    #     if word in dict_s1:
-    #         deno1 += tfidf_d1[word] ** 2
-    #     if word in dict_s2:
-    #         deno2 += tfidf_d2[word] ** 2
-
     # ### tf
     # for word in all_words:
     #     num += tf_d1[word] * tf_d2[word]
@@ -138,6 +129,14 @@ def calculate_sim(s1, s2):
     #         deno1 += tf_d1[word] ** 2
     #     if word in dict_s2:
     #         deno2 += tf_d2[word] ** 2
+
+    # ### TFIDF
+    # for word in all_words:
+    #     num += tfidf_d1[word] * tfidf_d2[word]
+    #     if word in dict_s1:
+    #         deno1 += tfidf_d1[word] ** 2
+    #     if word in dict_s2:
+    #         deno2 += tfidf_d2[word] ** 2
 
     deno = sqrt(deno1) * sqrt(deno2)
 
@@ -148,18 +147,16 @@ def calculate_sim(s1, s2):
 
     if sim >= 0.99999: #to handle exact match
         sim = 1
-    
+
     return sim
 
-##################
 if __name__ == "__main__":
 
     ## take input from user or POST method:
     ## 2 sentences:
-    s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for orangesdfg."
-    # s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for you."
+    s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for you."
     s2 = "The easiest way to earn points with Fetch Rewards is to just shop for the items you already buy. If you have any eligible brands on your receipt, you will get points based on the total cost of the products. You do not need to cut out any coupons or scan individual UPCs. Just scan your receipt after you check out and we will find the savings for you."
-
+    
     #extra for now
     s3 = "We are always looking for opportunities for you to earn more points, which is why we also give you a selection of Special Offers. These Special Offers are opportunities to earn bonus points on top of the regular points you earn every time you purchase a participating brand. No need to pre-select these offers, we'll give you the points whether or not you knew about the offer. We just think it is easier that way."
 
@@ -170,15 +167,15 @@ if __name__ == "__main__":
 
 
     # print("Similarity Score = ", calculate_sim(a, b) )
-    print("Similarity Score = ", calculate_sim(s1, s3) )
+    print("Similarity Score = ", calculate_sim(s1, s2) )
 
 
 '''
 Results:
                     s1 vs s1       s1 vs s2     s1 vs s3
-Cos sim        :    1            0.86024         0.51457
-TF - cos sim   :    1            0.86024         0.51457
-TFIDF - cos sim:    1            0.64420         0.22799
-
+Cos sim        :    1            0.87940         0.54524
+cos sim-stopwords:  1            0.76964         0.29852
+TF - cos sim   :    1            0.87940         0.54524
+TFIDF - cos sim:    1            0.67114         0.24819
 
 '''

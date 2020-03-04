@@ -1,6 +1,4 @@
-from flask import request
 from math import sqrt
-from math import log10
 
 #function to calcualte similarity score
 def calculate_sim(s1, s2):
@@ -91,15 +89,15 @@ def calculate_sim(s1, s2):
         if dict_s2[word] != 0:
             df += 1
         
-        idf[word] =  ( N / (df) )   #log 10  removed as no, of documents is too small
+        idf[word] =  ( N / (df) )   #log 10  removed as no. of documents is too small
         
-    ### TFIDF is not used as the no. of document to be compared is only 2
-    # tfidf_d1 = {}
-    # tfidf_d2 = {}
+    ### TFIDF
+    tfidf_d1 = {}
+    tfidf_d2 = {}
 
-    # for word in all_words:
-    #     tfidf_d1[word] = (dict_s1[word] / doc1_length) * (idf[word])
-    #     tfidf_d2[word] = (dict_s2[word] / doc2_length) * (idf[word])
+    for word in all_words:
+        tfidf_d1[word] = (dict_s1[word] / doc1_length) * (idf[word])
+        tfidf_d2[word] = (dict_s2[word] / doc2_length) * (idf[word])
     
     # tf_d1 = {}
     # tf_d2 = {}
@@ -114,13 +112,13 @@ def calculate_sim(s1, s2):
     deno1 = 0
     deno2 = 0
 
-    ### #simple term count - similar to TF
-    for word in all_words:
-        num += dict_s1[word] * dict_s2[word]
-        if word in dict_s1:
-            deno1 += dict_s1[word] ** 2
-        if word in dict_s2:
-            deno2 += dict_s2[word] ** 2
+    # ### #simple term count - similar to TF
+    # for word in all_words:
+    #     num += dict_s1[word] * dict_s2[word]
+    #     if word in dict_s1:
+    #         deno1 += dict_s1[word] ** 2
+    #     if word in dict_s2:
+    #         deno2 += dict_s2[word] ** 2
 
     # ### tf
     # for word in all_words:
@@ -152,7 +150,7 @@ def calculate_sim(s1, s2):
 
 if __name__ == "__main__":
 
-    ## take input from user or POST method:
+    ## take input from user:
     ## 2 sentences:
     s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for you."
     s2 = "The easiest way to earn points with Fetch Rewards is to just shop for the items you already buy. If you have any eligible brands on your receipt, you will get points based on the total cost of the products. You do not need to cut out any coupons or scan individual UPCs. Just scan your receipt after you check out and we will find the savings for you."
@@ -164,7 +162,6 @@ if __name__ == "__main__":
     # a = input()
     # print("Enter or paste second sentence to compare to:")
     # b = input()
-
 
     # print("Similarity Score = ", calculate_sim(a, b) )
     print("Similarity Score = ", calculate_sim(s1, s2) )

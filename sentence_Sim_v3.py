@@ -43,8 +43,6 @@ def calculate_sim(s1, s2):
     # transform docs into lists of words
     docs = [l.split() for l in sentences ]
 
-    # print(docs)
-
     # accept only alphabets
     words = [] # to store words
 
@@ -59,7 +57,8 @@ def calculate_sim(s1, s2):
     for d in docs:
         temp = []
         for w in d:
-            if len(w) > 2 and w not in stopwords: #discard stopwords
+            if w not in stopwords: #discard stopwords
+            # if len(w) > 2 and w not in stopwords: #discard stopwords
             # if len(w) > 2:
                 total_cnt += 1
                 all_words[w] = all_words.get(w, 0) + 1 #if not present use default val: 0
@@ -150,30 +149,30 @@ def calculate_sim(s1, s2):
 
 if __name__ == "__main__":
 
-    ## take input from user:
     ## 2 sentences:
-    s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for you."
-    s2 = "The easiest way to earn points with Fetch Rewards is to just shop for the items you already buy. If you have any eligible brands on your receipt, you will get points based on the total cost of the products. You do not need to cut out any coupons or scan individual UPCs. Just scan your receipt after you check out and we will find the savings for you."
+    # s1 = "The easiest way to earn points with Fetch Rewards is to just shop for the products you already love. If you have any participating brands on your receipt, you'll get points based on the cost of the products. You don't need to clip any coupons or scan individual barcodes. Just scan each grocery receipt after you shop and we'll find the savings for you."
+    # s2 = "The easiest way to earn points with Fetch Rewards is to just shop for the items you already buy. If you have any eligible brands on your receipt, you will get points based on the total cost of the products. You do not need to cut out any coupons or scan individual UPCs. Just scan your receipt after you check out and we will find the savings for you."
     
-    #extra for now
-    s3 = "We are always looking for opportunities for you to earn more points, which is why we also give you a selection of Special Offers. These Special Offers are opportunities to earn bonus points on top of the regular points you earn every time you purchase a participating brand. No need to pre-select these offers, we'll give you the points whether or not you knew about the offer. We just think it is easier that way."
+    # #extra for now
+    # s3 = "We are always looking for opportunities for you to earn more points, which is why we also give you a selection of Special Offers. These Special Offers are opportunities to earn bonus points on top of the regular points you earn every time you purchase a participating brand. No need to pre-select these offers, we'll give you the points whether or not you knew about the offer. We just think it is easier that way."
+    # print("Similarity Score = ", calculate_sim(s1, s2) )
 
-    # print("Enter or paste first sentence for comparision:")
-    # a = input()
-    # print("Enter or paste second sentence to compare to:")
-    # b = input()
+    ## take input from user:
+    print("Enter or paste first sentence for comparision:")
+    a = input()
+    print("Enter or paste second sentence to compare to:")
+    b = input()
 
-    # print("Similarity Score = ", calculate_sim(a, b) )
-    print("Similarity Score = ", calculate_sim(s1, s2) )
+    print("Similarity Score = ", calculate_sim(a, b) )
 
 
-'''
-Results:
-                    s1 vs s1       s1 vs s2     s1 vs s3
-Cos sim        :    1            0.87940         0.54524
-cos sim-stopwords:  1            0.76964         0.29852
-TF - cos sim   :    1            0.87940         0.54524
-TFIDF - cos sim:    1            0.67114         0.24819
-TFIDF-stopwords:    1            0.47336         0.10211
+    '''
+    Results:
+                        s1 vs s1       s1 vs s2     s1 vs s3
+    Cos sim        :    1            0.87940         0.54524
+    cos sim-stopwords:  1            0.76964         0.29852
+    TF - cos sim   :    1            0.87940         0.54524
+    TFIDF - cos sim:    1            0.67114         0.24819
+    TFIDF-stopwords:    1            0.47336         0.10211
 
-'''
+    '''

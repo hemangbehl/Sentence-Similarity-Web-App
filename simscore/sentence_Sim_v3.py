@@ -164,15 +164,3 @@ if __name__ == "__main__":
     b = input()
 
     print("Similarity Score = ", calculate_sim(a, b) )
-
-
-    '''
-    Results:
-                        s1 vs s1       s1 vs s2     s1 vs s3
-    Cos sim        :    1            0.87940         0.54524
-    cos sim-stopwords:  1            0.76964         0.29852
-    TF - cos sim   :    1            0.87940         0.54524
-    TFIDF - cos sim:    1            0.67114         0.24819
-    TFIDF-stopwords:    1            0.47336         0.10211
-
-    '''

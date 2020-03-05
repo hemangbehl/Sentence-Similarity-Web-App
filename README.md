@@ -14,21 +14,24 @@ df (document freq) = no. of documents a word is present in
 The code can be run via multiple ways:
 
 ### (a) Python code
-- in a new folder open a terminal and type *"git pull "*
+- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
+- run the command *"cd simscore"* to enter the folder "simscore"
 - run the command *"python sentence_Sim_v3.py"*
 - enter the two sentences to compare
 - similarity score will be displayed
 
 ### (b) Web app using Flask
-- in a new folder open a terminal and type *"git pull "*
+- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
+- run the command *"cd simscore"* to enter the folder "simscore"
 - run the command *"python app.py"*
-- go to **http://0.0.0.0:5000/** using a web browser
+- go to **http://0.0.0.0:5000/** or **http://localhost:5000/** using a web browser
 - enter the two sentences to compare
 - similarity score will be displayed
 
 ### (c) Using Dockerfile from DockerHub
-- in a new folder open a terminal and type *"docker pull hemang18/simscore:latest"*
-- run the command *"docker run -d -p 5000:5000 simscore"*
+- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
+- run the command *"cd simscore"* to enter the folder "simscore"
+- run the command *"docker run -d -p 5000:5000 hemang18/simscore"*
 - go to **http://0.0.0.0:5000/** using a web browser
 - enter the two sentences to compare
 - similarity score will be displayed
@@ -42,17 +45,14 @@ https://hub.docker.com/r/hemang18/simscore
 ## Results of different metrics:
 
 **Results:**
-					**s1 vs s1**       **s1 vs s2**     	**s1 vs s3**
 
-**Cos sim        :**    		1            	0.87940         0.54524
-
-**cos sim-stopwords:**  		1            	0.76964         0.29852
-
-**TF - cos sim   :**    		1            	0.87940         0.54524
-
-**TFIDF - cos sim:**    		1            	0.67114         0.24819
-
-**TFIDF-stopwords:**    		1            	0.47336         0.10211
+| Tables                | s1 vs s1      | s1 vs s2| s1 vs s3  |
+| -------------         |:-------------:|:-----:  |:-----:|
+| **Cos sim:**          |  1    | 0.87940  | 0.54524 |
+| **cos sim-stopwords:**|  1    | 0.76964  | 0.29852 |
+| **TF - cos sim   :**  |  1    | 0.87940  | 0.54524 |
+| **TFIDF - cos sim:**  |  1    | 0.67114  | 0.24819 |
+| **TFIDF - stopwords:**|  1    | 0.47336  | 0.10211 |
 
 **Sample sentences used:**
 

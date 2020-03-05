@@ -3,10 +3,12 @@
 ## Description
 This web application takes two sentences as input and gives a similarity score.
 Metric used here is cosine similarity. The sentences are parsed and any non-alphabetic characters are discarded. Stopwords are also removed. TF-IDF is also applied on the sentences.
+```
 Tf-idf = tf * idf
 where tf = count of term 't' in the document / no. of words in that document
 idf = total no. of documents / document freq
 df (document freq) = no. of documents a word is present in
+```
 
 ## Steps to follow to run the code:
 The code can be run via multiple ways:

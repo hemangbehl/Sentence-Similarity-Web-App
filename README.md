@@ -14,14 +14,14 @@ df (document freq) = no. of documents a word is present in
 The code can be run via multiple ways:
 
 ### (a) Python code
-- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
+- open a terminal and type *"git clone https://github.com/hemangbehl/Sentence-Similarity-Web-App.git "*
 - run the command *"cd simscore"* to enter the folder "simscore"
 - run the command *"python sentence_Sim_v3.py"*
 - enter the two sentences to compare
 - similarity score will be displayed
 
 ### (b) Web app using Flask
-- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
+- open a terminal and type *"git clone https://github.com/hemangbehl/Sentence-Similarity-Web-App.git "*
 - run the command *"cd simscore"* to enter the folder "simscore"
 - run the command *"python app.py"*
 - go to **http://0.0.0.0:5000/** or **http://localhost:5000/** using a web browser
@@ -29,8 +29,7 @@ The code can be run via multiple ways:
 - similarity score will be displayed
 
 ### (c) Using Dockerfile from DockerHub
-- open a terminal and type *"git clone git@github.com:hemangbehl/Sentence-Similarity-Web-App.git "*
-- run the command *"cd simscore"* to enter the folder "simscore"
+- open a terminal and type *"docker pull hemang18/simscore:latest "*
 - run the command *"docker run -d -p 5000:5000 hemang18/simscore"*
 - go to **http://0.0.0.0:5000/** using a web browser
 - enter the two sentences to compare

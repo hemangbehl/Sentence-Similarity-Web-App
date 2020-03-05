@@ -67,4 +67,4 @@ s3 = "We are always looking for opportunities for you to earn more points, which
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

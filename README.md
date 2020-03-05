@@ -61,6 +61,10 @@ s2 = "The easiest way to earn points with Fetch Rewards is to just shop for the 
 
 s3 = "We are always looking for opportunities for you to earn more points, which is why we also give you a selection of Special Offers. These Special Offers are opportunities to earn bonus points on top of the regular points you earn every time you purchase a participating brand. No need to pre-select these offers, we'll give you the points whether or not you knew about the offer. We just think it is easier that way."
 
+## Authors
+
+* **Hemang Behl** - [hemangbehl](https://github.com/hemangbehl) [LinkedIn](https://www.linkedin.com/in/hemangbehl/)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
